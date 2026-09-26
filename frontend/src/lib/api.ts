@@ -1,5 +1,8 @@
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+const API_BASE = typeof window !== 'undefined'
+  ? '/api'
+  : (rawApiUrl.startsWith('http') ? `${rawApiUrl}/api` : (rawApiUrl ? `http://${rawApiUrl}/api` : 'http://127.0.0.1:8000/api'));
 
 export interface DashboardData {
   greeting: string;
