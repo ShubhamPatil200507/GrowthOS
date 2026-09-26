@@ -8,6 +8,8 @@ services:
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     plan: free
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
       - key: ENVIRONMENT
         value: production
       - key: DATABASE_URL
@@ -15,7 +17,7 @@ services:
       - key: CORS_ORIGINS
         value: "*"
 
-  # 2. Next.js Frontend (Free Tier)
+  # 2. Next.js Frontend (Free Tier, 512MB RAM optimized)
   - type: web
     name: growthos-frontend
     runtime: node
@@ -24,8 +26,14 @@ services:
     startCommand: npm run start
     plan: free
     envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
       - key: NODE_ENV
         value: production
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: NODE_OPTIONS
+        value: "--max-old-space-size=450"
       - key: NEXT_PUBLIC_API_URL
         fromService:
           type: web
