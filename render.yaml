@@ -1,0 +1,33 @@
+services:
+  # 1. FastAPI Backend (Free Tier)
+  - type: web
+    name: growthos-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt && python scripts/seed_demo_data.py
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        value: sqlite:///growthos.db
+      - key: CORS_ORIGINS
+        value: "*"
+
+  # 2. Next.js Frontend (Free Tier)
+  - type: web
+    name: growthos-frontend
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: growthos-backend
+          property: host
