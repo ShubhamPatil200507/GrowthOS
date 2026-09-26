@@ -1,0 +1,16 @@
+{
+  "name": "GrowthOS - AI Business Partner for Merchants",
+  "short_name": "GrowthOS",
+  "description": "From payment data to the next best action. AI Business Partner designed for Paytm Merchants.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#F5FAFD",
+  "theme_color": "#00BAF2",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
